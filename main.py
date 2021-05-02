@@ -1,14 +1,18 @@
 import argparse
+import traceback
+from getpass import getpass
 
 from loguru import logger
 
 import radius
-import traceback
 
-def main(username, password, secret, host, port):
+
+def main(username, password, secret, host, port=1812):
 
     try:
-        r = radius.authenticate(secret=secret, username=username, password=password, host=host, port=port )
+        r = radius.authenticate(
+            secret=secret, username=username, password=password, host=host, port=port
+        )
         logger.tracer(type(r))
         logger.tracer(r)
         logger.tracer(r.__dict__)
@@ -16,7 +20,7 @@ def main(username, password, secret, host, port):
 
     except Exception as e:
         logger.error(f"An error occurried: {e}")
-    exception:
+    except:
         logger.error(traceback.print_exc)
 
 
@@ -25,17 +29,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="RADIUS Challenge/Response Authentication"
     )
-    parser.add_argument("username", type=str, help="user id (e.g. MU59145)")
-    parser.add_argument("password", type=str, help="user password")
-    parser.add_argument("secret", type=str, help="RADIUS Secret")
+    parser.add_argument("username", type=str, help="username id (e.g. MU59145)")
     parser.add_argument("host", type=str, help="RADIUS server hostname/IP")
-    parser.add_argument("port", type=int, help="RADIUS server port", default=1812)
 
     args = parser.parse_args()
     username = args.username
-    password = args.password
-    secret = args.secret
     host = args.host
-    port = args.port
 
-    main(username, password, secret, host, port)
+    secret = getpass("Enter RADIUS Secret: ")
+    password = getpass("Enter your password: ")
+
+    main(username, password, secret, host)
