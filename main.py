@@ -5,7 +5,7 @@ from getpass import getpass
 
 from loguru import logger
 
-from radius import Attributes, ChallengeResponse, authenticate
+from radius import Attributes, ChallengeResponse, authenticate, NoResponse, SocketError
 
 
 def main(username, password, secret, host, port=1812):
@@ -22,6 +22,10 @@ def main(username, password, secret, host, port=1812):
         _status(authenticate(secret, username, password, host=host, port=port))
     except ChallengeResponse as e:
         err = e
+    except NoResponse:
+        sys.exit("No Response")
+    except SocketError:
+        sys.exit("Socket Error")
     except Exception:
         traceback.print_exc()
         sys.exit("Authentication Error")
