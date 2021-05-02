@@ -23,4 +23,4 @@ Two-Factor Authentication Using RADIUS test client
 
 1. Go to the project folder `$ cd path_to_project`
 2. Activate environment `$ .venv\Scripts\activate.bat`
-3. Run `$ pyinstaller --clean -F ./main.py --name middleware.radius --version-file file_version_info.txt`
+3. Run `$ pyinstaller --clean -F ./main.py --name middleware.radius`
