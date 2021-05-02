@@ -3,7 +3,7 @@ import argparse
 from loguru import logger
 
 import radius
-
+import traceback
 
 def main(username, password, secret, host, port):
 
@@ -16,6 +16,8 @@ def main(username, password, secret, host, port):
 
     except Exception as e:
         logger.error(f"An error occurried: {e}")
+    exception:
+        logger.error(traceback.print_exc)
 
 
 if __name__ == "__main__":
