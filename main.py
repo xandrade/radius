@@ -18,6 +18,8 @@ def main(username, password, secret, host, port=1812):
         logger.tracer(r.__dict__)
         logger.tracer(r.__class__)
 
+    except radius.CahllengeResponse as e:
+        logger.info(f"Successfully authenticated. State={e.state}")
     except Exception as e:
         logger.error(f"An error occurried: {e}")
     except:
