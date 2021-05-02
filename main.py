@@ -8,7 +8,7 @@ import radius
 def main(username, password, secret, host, port):
 
     try:
-        r = radius.authenticate(secret, username, password, host=host, port=port)
+        r = radius.authenticate(secret=secret, username=username, password=password, host=host, port=port )
         logger.tracer(type(r))
         logger.tracer(r)
         logger.tracer(r.__dict__)
