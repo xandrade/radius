@@ -36,7 +36,7 @@ if __name__ == "__main__":
     username = args.username
     host = args.host
 
-    password = getpass("Enter your password: ")
+    password = getpass("Enter your Password: ")
     secret = getpass("Enter RADIUS Secret: ")
 
     main(username, password, secret, host)
