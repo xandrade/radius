@@ -1,6 +1,6 @@
-import argparse
-import sys
-import traceback
+from argparse import ArgumentParser
+from sys import exit
+from traceback import print_exc
 from getpass import getpass
 
 from loguru import logger
@@ -12,9 +12,9 @@ def main(username, password, secret, host, port=1812):
     def _status(outcome):
         if outcome:
             print("Authentication Succeeded")
-            sys.exit(0)
+            exit(0)
         else:
-            sys.exit("Authentication Failed")
+            exit("Authentication Failed")
 
     err = None
 
@@ -23,12 +23,12 @@ def main(username, password, secret, host, port=1812):
     except ChallengeResponse as e:
         err = e
     except NoResponse:
-        sys.exit("No Response")
+        exit("No Response")
     except SocketError:
-        sys.exit("Socket Error")
+        exit("Socket Error")
     except Exception:
-        traceback.print_exc()
-        sys.exit("Authentication Error")
+        print_exc()
+        exit("Authentication Error")
 
     print("RADIUS server replied with a challenge.")
 
@@ -47,22 +47,21 @@ def main(username, password, secret, host, port=1812):
             authenticate(secret, username, response, host=host, port=port, attributes=a)
         )
     except Exception:
-        traceback.print_exc()
-        sys.exit("Authentication Error")
+        print_exc()
+        exit("Authentication Error")
 
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(
-        description="RADIUS Challenge/Response Authentication"
-    )
+    parser = ArgumentParser(description="RADIUS Challenge/Response Authentication")
     parser.add_argument("username", type=str, help="username id (e.g. MU59145)")
     parser.add_argument("host", type=str, help="RADIUS server hostname/IP")
-    parser.add_argument("port", type=str, required=Fase, help="RADIUS server port")
+    parser.add_argument("port", default=1812, type=int, help="RADIUS server port")
 
     args = parser.parse_args()
     username = args.username
     host = args.host
+    port = args.port
 
     password = getpass("Enter your Password: ")
     secret = getpass("Enter RADIUS Secret: ")
