@@ -58,6 +58,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("username", type=str, help="username id (e.g. MU59145)")
     parser.add_argument("host", type=str, help="RADIUS server hostname/IP")
+    parser.add_argument("port", type=str, required=Fase, help="RADIUS server port")
 
     args = parser.parse_args()
     username = args.username
@@ -66,4 +67,4 @@ if __name__ == "__main__":
     password = getpass("Enter your Password: ")
     secret = getpass("Enter RADIUS Secret: ")
 
-    main(username, password, secret, host)
+    main(username, password, secret, host, port)
