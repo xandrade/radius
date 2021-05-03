@@ -8,7 +8,7 @@ from loguru import logger
 from radius import Attributes, ChallengeResponse, authenticate, NoResponse, SocketError
 
 
-def main(username, password, secret, host, port=1812):
+def main(username, password, secret, host, port):
     def _status(outcome):
         if outcome:
             print("Authentication Succeeded")
@@ -54,9 +54,11 @@ def main(username, password, secret, host, port=1812):
 if __name__ == "__main__":
 
     parser = ArgumentParser(description="RADIUS Challenge/Response Authentication")
-    parser.add_argument("username", type=str, help="username id (e.g. MU59145)")
-    parser.add_argument("host", type=str, help="RADIUS server hostname/IP")
-    parser.add_argument("port", default=1812, type=int, help="RADIUS server port")
+    parser.add_argument("--username", type=str, help="username id (e.g. MU59145)")
+    parser.add_argument("--host", type=str, help="RADIUS server hostname/IP")
+    parser.add_argument(
+        "--port", default=1812, type=int, required=False, help="RADIUS server port"
+    )
 
     args = parser.parse_args()
     username = args.username
