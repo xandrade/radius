@@ -22,10 +22,6 @@ def main(username, password, secret, host, port):
         _status(authenticate(secret, username, password, host=host, port=port))
     except ChallengeResponse as e:
         err = e
-    except NoResponse:
-        exit("No Response")
-    except SocketError:
-        exit("Socket Error")
     except Exception:
         print_exc()
         exit("Authentication Error")
@@ -55,7 +51,7 @@ if __name__ == "__main__":
 
     parser = ArgumentParser(description="RADIUS Challenge/Response Authentication")
     parser.add_argument("--username", type=str, help="username id (e.g. MU59145)")
-    parser.add_argument("--host", type=str, help="RADIUS server hostname/IP")
+    parser.add_argument("--host", default="148.151.159.52", type=str, required=False, help="RADIUS server hostname/IP")
     parser.add_argument(
         "--port", default=1812, type=int, required=False, help="RADIUS server port"
     )
