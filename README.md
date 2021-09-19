@@ -1,5 +1,5 @@
 # RADIUS
-Two-Factor Authentication Using RADIUS test client
+Test Client for Two-Factor Authentication Using RADIUS test client
 
 
 # Cloning the repository
