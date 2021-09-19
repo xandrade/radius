@@ -50,8 +50,8 @@ def main(username, password, secret, host, port):
 if __name__ == "__main__":
 
     parser = ArgumentParser(description="RADIUS Challenge/Response Authentication")
-    parser.add_argument("--username", type=str, help="username id (e.g. MU59145)")
-    parser.add_argument("--host", default="148.151.159.52", type=str, required=False, help="RADIUS server hostname/IP")
+    parser.add_argument("--username", type=str, help="username id (e.g. antonio)")
+    parser.add_argument("--host", default="192.168.1.1", type=str, required=False, help="RADIUS server hostname/IP")
     parser.add_argument(
         "--port", default=1812, type=int, required=False, help="RADIUS server port"
     )
